@@ -56,19 +56,23 @@ public class ApplicationInterface {
                     }
                 }
                 case "3" -> {
-                    for (int i = 0; i < guestGroups.size(); i++) {
-                        Set<Guest> group = guestGroups.get(i);
-
-                        logger.logInfo("Group " + (i + 1) + ":");
-                        for (Guest guest : group) {
-                            logger.logInfo(guest.name() + " - " + guest.guestType());
-                        }
-                    }
+                    logGroupInfo(guestGroups);
                 }
                 case "4" -> printGuestsForUserInputDate(guests);
                 case "5" -> breakfastManager.serveBreakfast(guestGroups, buffet);
                 case "6" -> running = false;
                 default -> logger.logError("Invalid choice. Please try again.");
+            }
+        }
+    }
+
+    private void logGroupInfo(List<Set<Guest>> guestGroups) {
+        for (int i = 0; i < guestGroups.size(); i++) {
+            Set<Guest> group = guestGroups.get(i);
+
+            logger.logInfo("Group " + (i + 1) + ":");
+            for (Guest guest : group) {
+                logger.logInfo(guest.name() + " - " + guest.guestType());
             }
         }
     }

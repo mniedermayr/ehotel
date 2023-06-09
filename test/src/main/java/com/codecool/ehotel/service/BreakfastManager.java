@@ -52,17 +52,9 @@ public class BreakfastManager {
             buffet = buffetService.refillBuffet(buffet);
 
             logger.logInfo("\nCollecting waste:");
-            buffet = buffetService.collectWaste(buffet);
+            buffetService.collectWaste(buffet);
 
-            if (groupNumber == guestGroups.size()) {
-                for (MealType mealType : MealType.values()) {
-                    PriorityQueue<Meal> meals = buffet.searchMealType(mealType);
-                    logger.logInfo("After last cycle, " + meals.size() + " " + mealType + " meals remain, each with cycle: ");
-                    for (Meal meal : meals) {
-                        logger.logInfo("  " + meal.getCycle());
-                    }
-                }
-            }
+            printGroupInfo(guestGroups, buffet, groupNumber);
 
             if (groupNumber == 8) {
                 logger.logInfo("Number of happy guests: " + happyGuests);
@@ -76,6 +68,18 @@ public class BreakfastManager {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
+            }
+        }
+    }
+
+    private void printGroupInfo(List<Set<Guest>> guestGroups, Buffet buffet, int groupNumber) {
+        if (groupNumber == guestGroups.size()) {
+            for (MealType mealType : MealType.values()) {
+                PriorityQueue<Meal> meals = buffet.searchMealType(mealType);
+                logger.logInfo("After last cycle, " + meals.size() + " " + mealType + " meals remain, each with cycle: ");
+                for (Meal meal : meals) {
+                    logger.logInfo("  " + meal.getCycle());
+                }
             }
         }
     }

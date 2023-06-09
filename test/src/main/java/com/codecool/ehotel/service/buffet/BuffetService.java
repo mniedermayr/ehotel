@@ -13,7 +13,7 @@ public interface BuffetService {
     boolean consumeFreshest(Guest guest, List<MealType> mealPreferences, Buffet buffet);
     Buffet refillBuffet(Buffet buffet);
     Buffet collectWaste(Buffet buffet);
-    Guest makeGuestUnhappy(Guest guest);
+    Guest makeGuestUnhappy(Guest guest); // TODO maybe extract from this service
     Buffet createBuffet();
 }
 

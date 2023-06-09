@@ -24,7 +24,7 @@ public class GuestServiceImpl implements GuestService {
         long checkInDayOffset = RANDOM.nextInt((int) seasonLength);
         LocalDate checkInDate = seasonStart.plusDays(checkInDayOffset);
 
-        int stayDuration = RANDOM.nextInt(7) + 1;
+        int stayDuration = RANDOM.nextInt(7) + 1; // TODO: magic numbers
         LocalDate checkOutDate = checkInDate.plusDays(stayDuration);
         if (checkOutDate.isAfter(seasonEnd)) {
             checkOutDate = seasonEnd;
@@ -38,6 +38,8 @@ public class GuestServiceImpl implements GuestService {
         return guests.stream()
                 .filter(guest -> !guest.checkIn().isAfter(date) && !guest.checkOut().isBefore(date))
                 .collect(Collectors.toSet());
+                //TODO: instead collect.... toSet()
+
     }
 
     @Override
@@ -47,6 +49,7 @@ public class GuestServiceImpl implements GuestService {
         Collections.shuffle(shuffledGuests);
 
         List<Set<Guest>> guestGroups = new ArrayList<>();
+        //TODO: magic number
         for (int i = 0; i < 8; i++) {
             guestGroups.add(new HashSet<>());
         }
